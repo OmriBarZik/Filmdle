@@ -11,6 +11,7 @@ export const PALETTE = {
   ink: "#f4f4f5",
   glow: "#2a1846",
   label: "#8b5cf6",
+  sleeve: "#5b3fc4",
   vinyl: "#111",
   shadow: "rgba(0,0,0,0.7)",
 } as const;

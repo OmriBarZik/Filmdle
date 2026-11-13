@@ -1,0 +1,143 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`daily picks are stable: for en 1`] = `
+[
+  "2026-10-20 film-87,film-3,film-26,film-38,film-7 1962 film-17,film-93,film-19,film-72,film-68,film-79,film-41,film-56,film-83,film-43 1950",
+  "2026-10-21 film-38,film-48,film-36,film-24,film-51 2020 film-76,film-111,film-3,film-102,film-56,film-96,film-94,film-89,film-64,film-79 2022",
+  "2026-10-22 film-9,film-47,film-43,film-119,film-74 1975 film-57,film-21,film-92,film-4,film-26,film-69,film-72,film-102,film-28,film-87 1953",
+  "2026-10-23 film-64,film-78,film-16,film-67,film-102 2014 film-1,film-59,film-71,film-98,film-107,film-118,film-19,film-57,film-108,film-113 2015",
+  "2026-10-24 film-68,film-99,film-81,film-111,film-91 2015 film-49,film-27,film-6,film-17,film-107,film-41,film-8,film-3,film-88,film-119 1950",
+  "2026-10-25 film-114,film-4,film-9,film-104,film-22 1974 film-83,film-81,film-12,film-74,film-28,film-109,film-2,film-63,film-107,film-113 1957",
+  "2026-10-26 film-71,film-31,film-28,film-89,film-29 2023 film-2,film-26,film-52,film-117,film-17,film-48,film-6,film-21,film-108,film-99 2011",
+  "2026-10-27 film-98,film-27,film-94,film-54,film-118 1953 film-66,film-59,film-53,film-87,film-73,film-21,film-67,film-81,film-108,film-7 1995",
+  "2026-10-28 film-19,film-118,film-108,film-41,film-32 2014 film-43,film-64,film-63,film-91,film-34,film-89,film-26,film-62,film-111,film-81 1994",
+  "2026-10-29 film-111,film-53,film-52,film-66,film-19 1984 film-54,film-29,film-38,film-64,film-98,film-41,film-81,film-96,film-32,film-3 1954",
+  "2026-10-30 film-93,film-72,film-46,film-107,film-43 1958 film-22,film-28,film-47,film-8,film-66,film-74,film-73,film-41,film-39,film-34 1970",
+  "2026-10-31 film-13,film-96,film-43,film-119,film-113 1953 film-21,film-51,film-53,film-32,film-49,film-34,film-27,film-47,film-62,film-28 2014",
+  "2026-11-01 film-107,film-36,film-13,film-46,film-53 2013 film-37,film-32,film-63,film-81,film-39,film-88,film-84,film-29,film-38,film-103 2007",
+  "2026-11-02 film-107,film-73,film-31,film-66,film-69 1998 film-41,film-59,film-117,film-118,film-74,film-101,film-97,film-4,film-38,film-113 2011",
+  "2026-11-03 film-114,film-24,film-36,film-101,film-73 1997 film-7,film-26,film-12,film-49,film-87,film-14,film-82,film-113,film-109,film-84 1961",
+  "2026-11-04 film-68,film-12,film-48,film-61,film-109 2013 film-52,film-104,film-83,film-76,film-39,film-34,film-42,film-64,film-31,film-79 1970",
+  "2026-11-05 film-81,film-17,film-43,film-46,film-99 1975 film-104,film-94,film-103,film-23,film-29,film-16,film-62,film-118,film-61,film-13 1963",
+  "2026-11-06 film-92,film-4,film-38,film-63,film-48 1986 film-36,film-43,film-23,film-67,film-33,film-79,film-54,film-74,film-109,film-14 1952",
+  "2026-11-07 film-26,film-71,film-12,film-104,film-22 1989 film-27,film-87,film-101,film-11,film-48,film-16,film-98,film-99,film-62,film-73 1994",
+  "2026-11-08 film-16,film-72,film-97,film-38,film-54 1994 film-57,film-14,film-29,film-93,film-77,film-1,film-44,film-3,film-27,film-23 2014",
+  "2026-11-09 film-26,film-42,film-96,film-12,film-106 1952 film-69,film-79,film-88,film-72,film-109,film-102,film-13,film-82,film-7,film-44 2011",
+  "2026-11-10 film-59,film-82,film-49,film-3,film-102 2010 film-38,film-107,film-52,film-119,film-56,film-112,film-114,film-87,film-29,film-46 2013",
+  "2026-11-11 film-67,film-26,film-54,film-86,film-69 2016 film-42,film-19,film-6,film-88,film-91,film-33,film-17,film-79,film-102,film-113 1965",
+  "2026-11-12 film-51,film-114,film-58,film-4,film-26 2010 film-1,film-108,film-117,film-71,film-82,film-77,film-103,film-116,film-92,film-27 1970",
+  "2026-11-13 film-112,film-1,film-108,film-86,film-26 2007 film-16,film-53,film-64,film-46,film-69,film-72,film-93,film-22,film-91,film-106 2010",
+  "2026-11-14 film-24,film-34,film-87,film-57,film-78 2006 film-104,film-61,film-114,film-29,film-31,film-82,film-66,film-13,film-16,film-7 2001",
+  "2026-11-15 film-73,film-79,film-89,film-102,film-86 1984 film-11,film-52,film-113,film-99,film-42,film-16,film-48,film-9,film-72,film-23 1950",
+  "2026-11-16 film-107,film-88,film-86,film-1,film-61 2005 film-79,film-84,film-77,film-53,film-113,film-43,film-36,film-114,film-27,film-9 1996",
+  "2026-11-17 film-57,film-93,film-42,film-119,film-43 2019 film-26,film-67,film-89,film-46,film-112,film-38,film-87,film-114,film-24,film-84 1971",
+  "2026-11-18 film-63,film-96,film-8,film-69,film-12 2010 film-19,film-33,film-99,film-106,film-13,film-112,film-37,film-32,film-17,film-119 2016",
+]
+`;
+
+exports[`daily picks are stable: for en+he 1`] = `
+[
+  "2026-10-20 film-87,film-3,film-26,film-30,film-105 1962 film-17,film-100,film-85,film-93,film-70,film-19,film-72,film-65,film-115,film-68 1950",
+  "2026-10-21 film-105,film-110,film-38,film-40,film-48 2020 film-76,film-111,film-30,film-3,film-0,film-102,film-20,film-85,film-56,film-96 2013",
+  "2026-10-22 film-5,film-80,film-95,film-85,film-15 1999 film-90,film-57,film-55,film-50,film-75,film-21,film-115,film-92,film-70,film-4 1953",
+  "2026-10-23 film-64,film-75,film-10,film-45,film-78 2014 film-1,film-35,film-85,film-59,film-100,film-71,film-0,film-98,film-70,film-65 1990",
+  "2026-10-24 film-40,film-70,film-20,film-68,film-90 2015 film-49,film-60,film-27,film-80,film-100,film-105,film-6,film-17,film-55,film-10 1979",
+  "2026-10-25 film-115,film-114,film-4,film-80,film-9 1974 film-70,film-83,film-81,film-20,film-95,film-25,film-12,film-74,film-28,film-109 1957",
+  "2026-10-26 film-71,film-25,film-31,film-28,film-65 2023 film-2,film-26,film-110,film-52,film-50,film-117,film-20,film-17,film-100,film-48 2011",
+  "2026-10-27 film-25,film-65,film-90,film-80,film-10 1953 film-66,film-0,film-59,film-53,film-20,film-87,film-27,film-45,film-73,film-40 1963",
+  "2026-10-28 film-19,film-65,film-118,film-108,film-115 2014 film-80,film-100,film-43,film-64,film-63,film-91,film-34,film-89,film-26,film-62 1994",
+  "2026-10-29 film-35,film-115,film-5,film-50,film-111 1963 film-54,film-29,film-38,film-64,film-98,film-41,film-52,film-55,film-30,film-105 1954",
+  "2026-10-30 film-0,film-5,film-10,film-93,film-100 1995 film-80,film-35,film-22,film-65,film-28,film-25,film-30,film-40,film-115,film-45 1970",
+  "2026-10-31 film-13,film-96,film-50,film-43,film-35 1953 film-21,film-51,film-53,film-5,film-32,film-49,film-34,film-60,film-95,film-25 2014",
+  "2026-11-01 film-107,film-75,film-36,film-60,film-13 1976 film-5,film-37,film-32,film-63,film-81,film-39,film-88,film-0,film-84,film-65 1963",
+  "2026-11-02 film-107,film-73,film-31,film-66,film-30 1998 film-41,film-59,film-117,film-80,film-118,film-0,film-74,film-101,film-97,film-45 1979",
+  "2026-11-03 film-114,film-24,film-36,film-101,film-73 1950 film-7,film-110,film-10,film-30,film-26,film-20,film-95,film-12,film-50,film-49 1961",
+  "2026-11-04 film-68,film-12,film-48,film-61,film-109 2013 film-52,film-40,film-110,film-20,film-104,film-83,film-76,film-10,film-50,film-39 1987",
+  "2026-11-05 film-81,film-17,film-43,film-15,film-85 1975 film-50,film-0,film-105,film-104,film-5,film-94,film-10,film-103,film-23,film-90 1963",
+  "2026-11-06 film-0,film-92,film-80,film-4,film-25 1986 film-95,film-105,film-36,film-5,film-115,film-43,film-23,film-67,film-30,film-40 1979",
+  "2026-11-07 film-26,film-100,film-115,film-71,film-80 1989 film-27,film-45,film-20,film-87,film-35,film-101,film-95,film-55,film-11,film-48 1962",
+  "2026-11-08 film-16,film-72,film-97,film-38,film-54 1987 film-115,film-57,film-65,film-14,film-10,film-29,film-50,film-0,film-93,film-77 2014",
+  "2026-11-09 film-100,film-25,film-0,film-10,film-26 1952 film-69,film-79,film-88,film-72,film-85,film-109,film-102,film-15,film-13,film-82 1962",
+  "2026-11-10 film-59,film-82,film-65,film-80,film-20 2004 film-102,film-38,film-107,film-40,film-52,film-115,film-119,film-56,film-35,film-112 2024",
+  "2026-11-11 film-45,film-67,film-26,film-100,film-54 2016 film-42,film-35,film-90,film-19,film-6,film-88,film-15,film-91,film-33,film-55 1965",
+  "2026-11-12 film-20,film-95,film-5,film-100,film-110 2010 film-25,film-1,film-50,film-55,film-40,film-108,film-117,film-85,film-10,film-45 2004",
+  "2026-11-13 film-65,film-105,film-0,film-80,film-112 2007 film-16,film-53,film-55,film-64,film-46,film-69,film-72,film-35,film-93,film-50 1950",
+  "2026-11-14 film-25,film-24,film-15,film-35,film-95 1963 film-50,film-20,film-104,film-100,film-40,film-61,film-114,film-29,film-105,film-31 2012",
+  "2026-11-15 film-73,film-40,film-20,film-15,film-80 2012 film-11,film-52,film-105,film-60,film-113,film-99,film-45,film-35,film-42,film-100 1950",
+  "2026-11-16 film-45,film-107,film-88,film-86,film-55 2005 film-30,film-79,film-84,film-77,film-53,film-20,film-40,film-113,film-90,film-95 1950",
+  "2026-11-17 film-57,film-20,film-93,film-25,film-100 2019 film-26,film-67,film-110,film-60,film-89,film-46,film-105,film-112,film-38,film-87 1971",
+  "2026-11-18 film-90,film-63,film-5,film-96,film-8 1963 film-19,film-35,film-33,film-60,film-95,film-99,film-106,film-100,film-13,film-110 2016",
+]
+`;
+
+exports[`daily picks are stable: for he 1`] = `
+[
+  "2026-10-20 film-30,film-105,film-40,film-70,film-110 2020 film-100,film-85,film-65,film-115,film-0,film-95,film-60,film-50,film-10,film-90 2020",
+  "2026-10-21 film-105,film-110,film-40,film-15,film-90 2004 film-30,film-0,film-20,film-85,film-115,film-35,film-75,film-50,film-45,film-5 2013",
+  "2026-10-22 film-5,film-80,film-95,film-85,film-15 1999 film-90,film-55,film-50,film-75,film-115,film-70,film-30,film-110,film-100,film-45 1995",
+  "2026-10-23 film-75,film-10,film-45,film-80,film-5 1967 film-35,film-85,film-100,film-0,film-70,film-65,film-115,film-60,film-50,film-95 1990",
+  "2026-10-24 film-40,film-70,film-20,film-90,film-80 2020 film-60,film-100,film-105,film-55,film-10,film-75,film-110,film-25,film-95,film-15 1979",
+  "2026-10-25 film-115,film-80,film-20,film-5,film-105 1979 film-70,film-95,film-25,film-15,film-40,film-35,film-55,film-50,film-100,film-30 1976",
+  "2026-10-26 film-25,film-65,film-15,film-0,film-100 2017 film-110,film-50,film-20,film-90,film-30,film-75,film-80,film-55,film-35,film-5 2012",
+  "2026-10-27 film-25,film-65,film-90,film-80,film-10 2004 film-0,film-20,film-45,film-40,film-115,film-15,film-35,film-70,film-95,film-5 1963",
+  "2026-10-28 film-65,film-115,film-50,film-40,film-55 1951 film-80,film-100,film-45,film-90,film-0,film-20,film-30,film-15,film-70,film-25 1967",
+  "2026-10-29 film-35,film-115,film-5,film-50,film-40 1963 film-55,film-30,film-105,film-100,film-65,film-85,film-20,film-15,film-25,film-10 2004",
+  "2026-10-30 film-0,film-5,film-10,film-100,film-30 1995 film-80,film-35,film-65,film-25,film-40,film-115,film-45,film-55,film-75,film-90 1950",
+  "2026-10-31 film-50,film-35,film-30,film-75,film-80 2022 film-5,film-60,film-95,film-25,film-15,film-65,film-110,film-45,film-115,film-85 1973",
+  "2026-11-01 film-75,film-60,film-55,film-110,film-25 1976 film-5,film-0,film-65,film-35,film-70,film-50,film-80,film-20,film-95,film-45 1963",
+  "2026-11-02 film-30,film-60,film-90,film-70,film-10 2013 film-80,film-0,film-45,film-85,film-105,film-25,film-65,film-100,film-20,film-115 1979",
+  "2026-11-03 film-60,film-90,film-80,film-65,film-55 1950 film-110,film-10,film-30,film-20,film-95,film-50,film-100,film-5,film-15,film-40 1967",
+  "2026-11-04 film-45,film-10,film-60,film-55,film-25 2024 film-40,film-110,film-20,film-50,film-35,film-5,film-95,film-115,film-0,film-30 2013",
+  "2026-11-05 film-15,film-85,film-20,film-50,film-75 1987 film-0,film-105,film-5,film-10,film-90,film-30,film-65,film-115,film-80,film-95 2020",
+  "2026-11-06 film-0,film-80,film-25,film-50,film-40 1963 film-95,film-105,film-5,film-115,film-30,film-100,film-60,film-15,film-90,film-75 1979",
+  "2026-11-07 film-100,film-115,film-80,film-30,film-20 1995 film-45,film-35,film-95,film-55,film-90,film-110,film-15,film-65,film-105,film-60 1962",
+  "2026-11-08 film-35,film-45,film-20,film-60,film-70 1987 film-115,film-65,film-10,film-50,film-0,film-80,film-30,film-85,film-15,film-25 1951",
+  "2026-11-09 film-100,film-25,film-0,film-10,film-95 2012 film-85,film-15,film-30,film-70,film-110,film-65,film-40,film-35,film-90,film-55 1962",
+  "2026-11-10 film-65,film-80,film-20,film-50,film-30 1963 film-40,film-115,film-35,film-15,film-105,film-90,film-75,film-85,film-95,film-110 2024",
+  "2026-11-11 film-45,film-100,film-50,film-115,film-85 1967 film-35,film-90,film-15,film-55,film-10,film-60,film-20,film-30,film-75,film-110 1967",
+  "2026-11-12 film-20,film-95,film-5,film-100,film-110 2017 film-25,film-50,film-55,film-40,film-85,film-10,film-45,film-75,film-90,film-30 2004",
+  "2026-11-13 film-65,film-105,film-0,film-80,film-90 2013 film-55,film-35,film-50,film-75,film-40,film-10,film-60,film-5,film-25,film-20 1950",
+  "2026-11-14 film-25,film-15,film-35,film-95,film-55 1963 film-50,film-20,film-100,film-40,film-105,film-80,film-75,film-60,film-85,film-110 2012",
+  "2026-11-15 film-40,film-20,film-15,film-80,film-110 2012 film-105,film-60,film-45,film-35,film-100,film-95,film-5,film-70,film-25,film-50 2017",
+  "2026-11-16 film-45,film-55,film-15,film-80,film-25 1976 film-30,film-20,film-40,film-90,film-95,film-110,film-60,film-35,film-75,film-115 1950",
+  "2026-11-17 film-20,film-25,film-100,film-50,film-115 1973 film-110,film-60,film-105,film-0,film-35,film-70,film-65,film-40,film-15,film-95 1979",
+  "2026-11-18 film-90,film-5,film-100,film-10,film-95 1963 film-35,film-60,film-110,film-45,film-15,film-55,film-40,film-85,film-115,film-70 2012",
+]
+`;
+
+exports[`random: hashes with FNV-1a 1`] = `770396093`;
+
+exports[`random: is a deterministic PRNG in [0, 1) 1`] = `
+[
+  0.6011037519201636,
+  0.44829055899754167,
+  0.8524657934904099,
+  0.6697340414393693,
+  0.17481389874592423,
+]
+`;
+
+exports[`random: shuffles without losing or changing items 1`] = `
+[
+  11,
+  8,
+  17,
+  3,
+  12,
+  9,
+  16,
+  14,
+  13,
+  5,
+  2,
+  6,
+  7,
+  4,
+  15,
+  19,
+  10,
+  0,
+  1,
+  18,
+]
+`;

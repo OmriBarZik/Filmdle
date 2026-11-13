@@ -1,0 +1,310 @@
+/* ---------- The poster being placed (PosterFrame.tsx) and the home page's reels ---------- */
+
+/* The poster over the line. Its box keeps the poster's size while the image loads, so
+   nothing shifts; a shimmer shows until it arrives. */
+.poster-box {
+  position: relative;
+  width: var(--swipe-poster-width);
+  height: var(--swipe-poster-height);
+}
+
+.poster-button {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-poster);
+  transition: transform var(--duration-fast) ease;
+}
+
+.poster-button:hover:not(:disabled) {
+  transform: scale(1.03);
+}
+
+.poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--duration-medium) ease;
+}
+
+.poster-img-on {
+  opacity: 1;
+}
+
+.poster-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    var(--color-tertiary) 30%,
+    color-mix(in srgb, var(--color-ink) 25%, transparent) 50%,
+    var(--color-tertiary) 70%
+  );
+  background-size: 300% 100%;
+  animation: poster-shimmer var(--duration-loading) linear infinite;
+}
+
+@keyframes poster-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* A poster that couldn't load: a plain clapperboard instead. */
+.poster-missing {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: var(--text-4xl);
+  background: var(--color-tertiary);
+}
+
+/* The magnifier in the corner: tap the poster to see it full screen. */
+.poster-zoom-hint {
+  position: absolute;
+  inset-block-end: var(--spacing-50);
+  inset-inline-end: var(--spacing-50);
+  display: grid;
+  place-items: center;
+  width: var(--spacing-300);
+  height: var(--spacing-300);
+  border-radius: var(--radius-pill);
+  background: var(--color-scrim);
+  color: var(--color-on-scrim);
+  font-size: var(--text-xs);
+}
+
+/* A new poster eases in once the last one has flown off. */
+.poster-enter {
+  animation: poster-enter var(--duration-slow) ease-out both;
+}
+
+@keyframes poster-enter {
+  from {
+    transform: translateY(var(--spacing-200)) scale(0.92);
+    opacity: 0;
+  }
+}
+
+/* The full-screen poster and the film's details (<dialog>). */
+.sheet {
+  width: min(100% - var(--spacing-400), var(--size-sheet));
+  max-height: calc(100dvh - var(--spacing-400));
+  margin: auto;
+  padding: 0;
+  border: var(--border-thin) solid var(--color-line);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  overflow: auto;
+}
+
+.sheet::backdrop {
+  background: var(--color-backdrop);
+}
+
+.sheet-zoom {
+  width: auto;
+  max-width: calc(100% - var(--spacing-400));
+  border: none;
+  background: transparent;
+  overflow: visible;
+}
+
+.sheet-zoom-img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100dvh - var(--spacing-1200));
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-poster);
+}
+
+.sheet-poster {
+  width: var(--spacing-1300);
+  aspect-ratio: 2 / 3;
+  flex: none;
+  object-fit: cover;
+  border-radius: var(--radius-control);
+  background: var(--color-tertiary);
+}
+
+/* A film reel on each home sleeve: a disc with six holes, in the mode's colour. */
+.reel {
+  border-radius: var(--radius-pill);
+  background:
+    radial-gradient(circle at 50% 22%, var(--color-reel-hole) 0 11%, transparent 11.5%),
+    radial-gradient(circle at 74.2% 36%, var(--color-reel-hole) 0 11%, transparent 11.5%),
+    radial-gradient(circle at 74.2% 64%, var(--color-reel-hole) 0 11%, transparent 11.5%),
+    radial-gradient(circle at 50% 78%, var(--color-reel-hole) 0 11%, transparent 11.5%),
+    radial-gradient(circle at 25.8% 64%, var(--color-reel-hole) 0 11%, transparent 11.5%),
+    radial-gradient(circle at 25.8% 36%, var(--color-reel-hole) 0 11%, transparent 11.5%),
+    radial-gradient(circle, var(--color-reel-hole) 0 5%, var(--label) 5.5% 9%, transparent 9.5%),
+    var(--color-reel);
+  box-shadow:
+    var(--shadow-poster),
+    inset 0 0 0 var(--border-heavy) var(--label);
+}
+
+.spin-slow {
+  animation: spin var(--duration-spin-slow) linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* After a guess the poster glows green (right) or red (wrong), then flies off in the
+   reading direction (left to right in English, right to left in Hebrew), and the next
+   poster eases in (`.poster-enter`). */
+.poster-glow {
+  opacity: 0;
+}
+
+.poster-glow-good {
+  --glow: var(--color-success);
+}
+
+.poster-glow-bad {
+  --glow: var(--color-danger);
+}
+
+.poster-glow-good,
+.poster-glow-bad {
+  background: linear-gradient(
+    color-mix(in srgb, var(--glow) 15%, transparent),
+    color-mix(in srgb, var(--glow) 45%, transparent)
+  );
+  box-shadow:
+    0 0 0 var(--border-heavy) var(--glow),
+    0 0 var(--glow-large) color-mix(in srgb, var(--glow) 70%, transparent);
+}
+
+.poster-swap {
+  /* Longhands: the minifier turns a shorthand without a name into "none". */
+  animation-duration: var(--duration-swap);
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+/* Hebrew flies the other way. Separate keyframes rather than a CSS variable:
+   Safari can't run keyframes that use var() off the main thread, so they lag
+   on a busy or throttled CPU. */
+.poster-swap-last {
+  animation-name: poster-swap-last;
+  animation-duration: var(--duration-swap-last);
+}
+
+[dir="rtl"] .poster-swap-last {
+  animation-name: poster-swap-last-rtl;
+}
+
+.poster-swap-last .poster-glow {
+  animation: poster-glow-hold var(--duration-swap-last) ease-in-out both;
+}
+
+.poster-swap-flash {
+  animation-name: poster-flash;
+}
+
+.poster-swap-flash .poster-glow {
+  animation: poster-glow-flash var(--duration-swap) ease-in-out both;
+}
+
+@keyframes poster-swap-last {
+  0%,
+  60% {
+    transform: none;
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+
+  100% {
+    transform: translateX(130%) rotate(20deg);
+    opacity: 0;
+  }
+}
+
+@keyframes poster-swap-last-rtl {
+  0%,
+  60% {
+    transform: none;
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+
+  100% {
+    transform: translateX(-130%) rotate(-20deg);
+    opacity: 0;
+  }
+}
+
+/* Does nothing visible; it only times the end of the glow. */
+@keyframes poster-flash {
+  to {
+    transform: none;
+  }
+}
+
+@keyframes poster-glow-hold {
+  0% {
+    opacity: 0;
+  }
+
+  12%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes poster-glow-flash {
+  0% {
+    opacity: 0;
+  }
+
+  15%,
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poster-shimmer {
+    animation: none;
+  }
+
+  /* Keep the glow and the timing, but don't move the poster. */
+  /* [dir] so it also beats the Hebrew keyframes above. */
+  [dir] .poster-swap {
+    animation-name: poster-flash;
+  }
+
+  [dir] .poster-swap .poster-glow {
+    animation-name: poster-glow-flash;
+  }
+}
+
+/* The small reel beside "Filmdle" in the header. */
+.mini-reel {
+  --label: var(--color-secondary);
+
+  display: inline-block;
+  width: var(--size-reel-mini);
+  height: var(--size-reel-mini);
+  box-shadow: inset 0 0 0 var(--border-thick) var(--label);
+}

@@ -1,0 +1,178 @@
+/* ---------- Home page: each game mode is a film can with its reel (ModeSleeve.tsx) ---------- */
+
+/* On a phone the home page is one column. On a desktop the headline, "This week" and
+   "How to play" sit on one side and the sleeves, bigger, on the other. */
+@variant lg {
+  .home {
+    display: grid;
+    grid-template:
+      "hero sleeves" auto
+      "side sleeves" 1fr / minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--spacing-400) var(--spacing-600);
+    padding-top: var(--spacing-400);
+  }
+
+  .home-hero {
+    grid-area: hero;
+  }
+
+  .home-side {
+    grid-area: side;
+  }
+
+  .home .sleeves {
+    grid-area: sleeves;
+    align-self: start;
+    column-gap: var(--spacing-300);
+  }
+}
+
+/* The sleeves share their rows (tag, name, description) through a subgrid, so each row
+   lines up with its neighbour even when one name wraps (as "החמישייה היומית" does). */
+.sleeves {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: auto auto 1fr;
+  gap: var(--spacing-50) var(--spacing-150);
+}
+
+.sleeve {
+  --sleeve: var(--color-daily);
+  --sleeve-ink: var(--color-daily-ink);
+
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  align-content: start;
+  border-radius: var(--radius-card);
+  background: var(--sleeve);
+
+  /* The other home cards' inset (their padding + border), so all text shares one edge. */
+  padding: calc(var(--spacing-200) + var(--border-thin));
+
+  /* Clear the reel peeking out of the top corner. */
+  padding-top: var(--sleeve-top);
+  color: var(--color-on-game);
+  box-shadow: var(--shadow-sleeve);
+  transition: transform var(--duration-fast) ease;
+}
+
+@variant lg {
+  .sleeve {
+    --sleeve-reel-peek: var(--sleeve-reel-peek-wide);
+    --sleeve-top: var(--sleeve-top-wide);
+
+    padding-bottom: var(--spacing-400);
+  }
+}
+
+.sleeve:hover {
+  transform: translateY(calc(-1 * var(--spacing-25)));
+}
+
+.sleeve:active {
+  transform: scale(0.98);
+}
+
+.sleeve-daily {
+  --sleeve: var(--color-daily);
+  --sleeve-ink: var(--color-daily-ink);
+  --label: var(--color-daily-label);
+}
+
+.sleeve-marathon {
+  --sleeve: var(--color-marathon);
+  --sleeve-ink: var(--color-marathon-ink);
+  --label: var(--color-marathon-label);
+}
+
+/* The reel slides half out of the sleeve's top corner. Its holes show the sleeve through. */
+.sleeve-reel {
+  --color-reel-hole: var(--sleeve);
+
+  position: absolute;
+  top: calc(-1 * var(--sleeve-reel-peek));
+  inset-inline-end: calc(-1 * var(--sleeve-reel-peek));
+  width: var(--size-reel);
+  height: var(--size-reel);
+  border-radius: var(--radius-pill);
+}
+
+@variant lg {
+  .sleeve-reel {
+    width: var(--size-reel-large);
+    height: var(--size-reel-large);
+  }
+}
+
+.sleeve-tag {
+  font-size: var(--text-2xs);
+  line-height: var(--text-2xs--line-height);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--sleeve-ink);
+}
+
+/* Wide letter-spacing breaks Hebrew. */
+[dir="rtl"] .sleeve-tag {
+  letter-spacing: normal;
+}
+
+.sleeve-desc {
+  color: var(--sleeve-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sleeve {
+    transition: none;
+  }
+
+  .sleeve:hover,
+  .sleeve:active {
+    transform: none;
+  }
+}
+
+/* Home page text all starts on one edge, in both directions: a card's padding plus its
+   border (`.home-inset` for the headline, which has no card). */
+.home-inset {
+  padding-inline: calc(var(--spacing-200) + var(--border-thin));
+}
+
+.home-card {
+  padding: var(--spacing-200);
+}
+
+/* "This week" on the home page (WeekStrip.tsx): Sunday to Saturday, in reading direction.
+   The fixed height keeps the loading placeholder (WeekStripLoading.tsx) the same size. */
+.week-card {
+  display: flex;
+  height: var(--week-card-height);
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-150);
+  padding: 0 var(--spacing-200);
+}
+
+.week-bar {
+  display: block;
+  width: 100%;
+  height: var(--spacing-100);
+  border-radius: var(--radius-pill);
+  background: var(--color-line);
+}
+
+.week-bar-on {
+  background: var(--color-secondary);
+}
+
+.week-bar-future {
+  opacity: 0.4;
+}
+
+.week-bar-today:not(.week-bar-on) {
+  box-shadow: inset 0 0 0 var(--border-thin) var(--color-muted);
+}

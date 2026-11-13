@@ -1,0 +1,500 @@
+/* ---------- The swipe line (SwipeLine.tsx) ----------
+   Cards hang off a time rail, each with its year on the rail. While placing, the
+   poster sits still in the middle and the strip slides under it; the two cards
+   beside it light up and the rail between their years glows.
+   Vertical layout (tokens.css): track padding + card + stem + half a node is the
+   rail (`--swipe-rail`, measured from the top of the list). */
+
+.swipe {
+  position: relative;
+  height: var(--swipe-height);
+}
+
+.swipe-track {
+  position: absolute;
+  inset: 0;
+  overflow: auto hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-top: var(--swipe-track-top);
+  padding-inline: calc(50% - var(--swipe-card-width) / 2);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    var(--mask-solid) var(--mask-fade),
+    var(--mask-solid) calc(100% - var(--mask-fade)),
+    transparent
+  );
+}
+
+.swipe-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* The edge fade (mask) would clip a focus ring drawn on the strip itself,
+   so the ring goes around the whole line instead. */
+.swipe-track:focus-visible {
+  outline: none;
+}
+
+.swipe:has(.swipe-track:focus-visible) {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-card);
+}
+
+.swipe-list {
+  display: flex;
+  align-items: flex-start;
+  width: max-content;
+  background: linear-gradient(var(--color-line), var(--color-line)) 0
+    calc(var(--swipe-rail) - var(--border-thick) / 2) / 100% var(--border-thick) no-repeat;
+}
+
+.swipe-gap {
+  position: relative;
+  flex: none;
+
+  /* SwipeLine's PITCH is this width plus a card's: keep them in step. */
+  width: var(--swipe-gap-width);
+  height: var(--border-thin);
+  scroll-snap-align: center;
+}
+
+/* The glowing stretch of rail between the two lit years. It lives inside the gap,
+   so it scrolls with the strip for free (on the compositor, with no JavaScript),
+   and only its opacity changes when the poster moves to another gap.
+   It reaches from the older card's node to the newer one's (half a card past each
+   side of the gap), stopping a node short so the lit nodes sit on top. */
+.swipe-glow {
+  position: absolute;
+  top: calc(var(--swipe-rail) - var(--spacing-50));
+  height: var(--spacing-100);
+  inset-inline: calc(var(--swipe-node) - var(--swipe-card-width) / 2);
+  border-radius: var(--radius-pill);
+  background: var(--color-secondary-bright);
+  box-shadow: 0 0 var(--glow-medium)
+    color-mix(in srgb, var(--color-secondary-bright) 65%, transparent);
+  opacity: 0;
+  transition: opacity var(--duration-medium) ease;
+  will-change: opacity;
+  pointer-events: none;
+}
+
+.swipe-gap-on .swipe-glow {
+  opacity: 1;
+}
+
+/* No film on that side: "any time before / after", fading out to the edge. */
+.swipe-glow-open-start {
+  inset-inline-start: calc(-1 * var(--swipe-pitch));
+  background: linear-gradient(to right, transparent, var(--color-secondary-bright) 70%);
+}
+
+.swipe-glow-open-end {
+  inset-inline-end: calc(-1 * var(--swipe-pitch));
+  background: linear-gradient(to right, var(--color-secondary-bright) 30%, transparent);
+}
+
+[dir="rtl"] .swipe-glow-open-start {
+  background: linear-gradient(to left, transparent, var(--color-secondary-bright) 70%);
+}
+
+[dir="rtl"] .swipe-glow-open-end {
+  background: linear-gradient(to left, var(--color-secondary-bright) 30%, transparent);
+}
+
+.swipe-item {
+  flex: none;
+  width: var(--swipe-card-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.swipe-card {
+  width: var(--swipe-card-width);
+  height: var(--swipe-card-height);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-50);
+  padding: var(--spacing-100);
+  overflow: hidden;
+}
+
+/* Fixed rows, so a card's year, title, artist, "watch" and note sit at the same
+   height as its neighbours', whatever the language or the title's length. */
+.swipe-title {
+  /* Two lines of text-sm (text-base on a desktop), even for a one-line title. */
+  height: calc(2 * var(--text-sm--line-height));
+  flex: none;
+}
+
+@variant lg {
+  .swipe-title {
+    height: calc(2 * var(--text-base--line-height));
+  }
+}
+
+/* Names have dir="auto"; align them with the page, not with their own language. */
+.swipe-name {
+  text-align: left;
+}
+
+[dir="rtl"] .swipe-name {
+  text-align: right;
+}
+
+.swipe-note {
+  height: var(--spacing-200);
+  flex: none;
+}
+
+.swipe-lit .swipe-card:not(.card-good, .card-bad) {
+  border-color: color-mix(in srgb, var(--color-secondary-bright) 60%, transparent);
+}
+
+/* Films from the same year (SwipeStack.tsx): one pile of cards on one spot of the rail.
+   The cards behind peek out above the front one, towards the end of the line. */
+.swipe-stack {
+  position: relative;
+  display: grid;
+}
+
+/* Positioned, so the cards paint in DOM order (back to front) even though the ones
+   behind are moved with a transform. */
+.swipe-stack-layer {
+  position: relative;
+  grid-area: 1 / 1;
+}
+
+.swipe-behind-1 {
+  transform: translate(var(--spacing-50), calc(-1 * var(--spacing-50)));
+}
+
+.swipe-behind-2 {
+  transform: translate(var(--spacing-100), calc(-1 * var(--spacing-100)));
+}
+
+[dir="rtl"] .swipe-behind-1 {
+  transform: translate(calc(-1 * var(--spacing-50)), calc(-1 * var(--spacing-50)));
+}
+
+[dir="rtl"] .swipe-behind-2 {
+  transform: translate(calc(-1 * var(--spacing-100)), calc(-1 * var(--spacing-100)));
+}
+
+/* "1/2" in the front card's corner: brings the next card of the pile to the front. */
+.swipe-stack-next {
+  position: absolute;
+  top: var(--spacing-50);
+  inset-inline-end: var(--spacing-50);
+  min-width: var(--spacing-300);
+  height: var(--spacing-300);
+  padding-inline: var(--spacing-50);
+  border-radius: var(--radius-pill);
+  background: var(--color-tertiary);
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: var(--leading-none);
+}
+
+.swipe-stack-next:hover {
+  background: color-mix(in srgb, var(--color-ink) 25%, transparent);
+}
+
+.swipe-stem {
+  width: var(--border-thin);
+  height: var(--swipe-stem);
+  background: var(--color-line);
+}
+
+/* Lighting up is instant: the lit pair changes every few frames mid-swipe, and
+   transitions on the years and nodes (or on colours, shadows and font weight) kept
+   the main thread busy and made swipes stutter. Only the glow fades, on its own
+   compositor layer. */
+.swipe-node {
+  position: relative;
+  width: var(--swipe-node);
+  height: var(--swipe-node);
+  border-radius: var(--radius-pill);
+  background: var(--color-line-strong);
+  box-shadow: 0 0 0 var(--border-heavy) var(--color-page);
+}
+
+/* The lit look is its own layer, faded in with opacity. */
+.swipe-node::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-secondary-bright);
+  box-shadow:
+    0 0 0 var(--border-heavy) var(--color-page),
+    0 0 var(--glow-medium) color-mix(in srgb, var(--color-secondary-bright) 90%, transparent);
+  opacity: 0;
+}
+
+.card-anchor ~ .swipe-node,
+.swipe-stack-anchor ~ .swipe-node {
+  background: var(--color-secondary);
+}
+
+.card-good ~ .swipe-node,
+.swipe-stack-good ~ .swipe-node {
+  background: var(--color-success);
+  transform: scale(1.5);
+}
+
+.card-bad ~ .swipe-node,
+.swipe-stack-bad ~ .swipe-node {
+  background: var(--color-danger);
+  transform: scale(1.5);
+}
+
+.swipe-lit .swipe-node {
+  transform: scale(1.5);
+}
+
+.swipe-lit .swipe-node::after {
+  opacity: 1;
+}
+
+/* The year on the rail. It grows with transform rather than font-size, so lighting
+   up a pair of years never re-lays out the strip. */
+.swipe-year {
+  margin-top: var(--spacing-100);
+  transform-origin: center top;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  line-height: var(--leading-none);
+
+  /* Small text needs at least 4.5:1 (WCAG AA): `faint` is 5.7:1 on the dark page. */
+  color: var(--color-faint);
+  font-variant-numeric: tabular-nums;
+
+  /* Always bold: changing the weight would re-lay out the text. */
+  font-weight: 700;
+}
+
+.swipe-lit .swipe-year,
+.card-good ~ .swipe-year,
+.card-bad ~ .swipe-year,
+.swipe-stack-good ~ .swipe-year,
+.swipe-stack-bad ~ .swipe-year {
+  transform: scale(1.8);
+  color: var(--color-ink);
+}
+
+/* The poster sits above the rail, its drop line and pin landing on the rail. */
+.swipe-poster {
+  position: absolute;
+  top: calc(
+    var(--swipe-track-top) + var(--swipe-rail) - var(--swipe-pin) / 2 - var(--swipe-drop) -
+      var(--swipe-poster-height)
+  );
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.swipe-poster > :first-child {
+  pointer-events: auto;
+}
+
+/* From the poster down to where it lands on the rail. */
+.swipe-drop {
+  height: var(--swipe-drop);
+  border-inline-start: var(--border-thick) dashed var(--color-secondary-bright);
+}
+
+.swipe-pin {
+  display: grid;
+  place-items: center;
+  width: var(--swipe-pin);
+  height: var(--swipe-pin);
+  border-radius: var(--radius-pill);
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+  font-size: var(--text-xs);
+  font-weight: 900;
+  box-shadow:
+    0 0 0 var(--border-heavy) var(--color-page),
+    0 0 var(--glow-medium) color-mix(in srgb, var(--color-secondary) 90%, transparent);
+}
+
+/* After answering, the poster moves above the strip, which centers on the answer. */
+.swipe-done {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-150);
+}
+
+.swipe-done .swipe-track {
+  position: relative;
+  inset: auto;
+  width: 100%;
+
+  /* Room for the years, which are scaled up under answered cards. */
+  padding-bottom: var(--spacing-200);
+  padding-inline: calc(50% - var(--swipe-card-width) / 2 - var(--swipe-done-margin));
+  scroll-snap-type: x proximity;
+}
+
+.swipe-done .swipe-item {
+  margin-inline: var(--swipe-done-margin);
+  scroll-snap-align: center;
+}
+
+.swipe-done .swipe-poster {
+  position: static;
+  order: -1;
+}
+
+.swipe-step {
+  flex: none;
+  width: var(--spacing-500);
+  height: var(--spacing-500);
+  border-radius: var(--radius-pill);
+  border: var(--border-thin) solid var(--color-line);
+  color: var(--color-muted);
+  font-size: var(--text-xl);
+  line-height: var(--leading-none);
+  transition: color var(--duration-fast) ease;
+}
+
+.swipe-step:hover:not(:disabled) {
+  color: var(--color-ink);
+}
+
+.swipe-step:disabled {
+  opacity: 0.3;
+}
+
+.swipe-map {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-50);
+  height: var(--spacing-400);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.swipe-map-gap {
+  flex: 1;
+  height: var(--border-thick);
+  border-radius: var(--radius-pill);
+  background: var(--color-line);
+}
+
+.swipe-map-on {
+  height: var(--spacing-100);
+  background: var(--color-secondary-bright);
+  box-shadow: 0 0 var(--glow-small)
+    color-mix(in srgb, var(--color-secondary-bright) 70%, transparent);
+}
+
+.swipe-map-dot {
+  flex: none;
+  width: var(--spacing-100);
+  height: var(--spacing-100);
+  border-radius: var(--radius-pill);
+  background: var(--color-line-strong);
+}
+
+.swipe-map-anchor {
+  background: var(--color-secondary);
+}
+
+/* With a mouse the strip is dragged (useSwipeDrag.ts); a click moves the poster to
+   the nearest gap. Snapping waits until the drag ends. */
+@media (hover: hover) and (pointer: fine) {
+  .swipe-track {
+    cursor: grab;
+
+    /* A drag would otherwise select the cards' text before it starts moving the strip. */
+    user-select: none;
+  }
+}
+
+.swipe-track.swipe-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swipe-glow {
+    transition: none;
+  }
+}
+
+/* A placed film's card: its poster, with the title over a scrim at the bottom and the
+   year in a corner. The whole card is a button that opens the film's details. */
+.swipe-film {
+  position: relative;
+  padding: 0;
+  gap: 0;
+  text-align: start;
+  isolation: isolate;
+}
+
+.swipe-film-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  background: var(--color-tertiary);
+}
+
+.swipe-film-year {
+  align-self: flex-start;
+  margin: var(--spacing-50);
+  padding: var(--spacing-25) var(--spacing-50);
+  border-radius: var(--radius-control);
+  background: var(--color-scrim);
+  color: var(--color-on-scrim);
+  font-size: var(--text-xs);
+  font-weight: 800;
+  line-height: var(--leading-none);
+  font-variant-numeric: tabular-nums;
+}
+
+.swipe-film-title {
+  margin-top: auto;
+  padding: var(--spacing-300) var(--spacing-50) var(--spacing-50);
+  background: linear-gradient(transparent, var(--color-scrim) 45%);
+  color: var(--color-on-scrim);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: var(--text-xs--line-height);
+}
+
+@variant lg {
+  .swipe-film-title {
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+}
+
+.swipe-film:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* A placed film's border shows whether it was right, a bit thicker over a poster. */
+.swipe-film.card-good,
+.swipe-film.card-bad {
+  border-width: var(--border-thick);
+}

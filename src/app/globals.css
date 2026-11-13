@@ -1,0 +1,124 @@
+@import "tailwindcss";
+@import "./styles/tokens.css";
+@import "./styles/home.css";
+@import "./styles/poster.css";
+@import "./styles/swipe.css";
+
+/* Every value here comes from styles/tokens.css: stylelint rejects raw colours and sizes. */
+
+html {
+  background: var(--color-page);
+}
+
+body {
+  background: var(--page-glow) no-repeat;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* One visible focus ring for keyboard users, on every control. */
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Each game screen tints its accents with the mode's colour. */
+.game-daily {
+  --label: var(--color-daily-label);
+}
+
+.game-marathon {
+  --label: var(--color-marathon-label);
+}
+
+.card {
+  background: var(--color-surface);
+  border: var(--border-thin) solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+
+.card-good {
+  border-color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 12%, var(--color-surface));
+}
+
+.card-bad {
+  border-color: var(--color-danger);
+  background: color-mix(in srgb, var(--color-danger) 12%, var(--color-surface));
+}
+
+.card-anchor {
+  border-color: var(--color-secondary);
+  background: color-mix(in srgb, var(--color-secondary) 14%, var(--color-surface));
+}
+
+/* Marathon hearts (Hearts.tsx). */
+.heart {
+  stroke-width: var(--border-thick);
+  stroke-linejoin: round;
+}
+
+.heart-full {
+  fill: var(--color-heart);
+  stroke: var(--color-heart);
+}
+
+.heart-empty {
+  fill: none;
+  stroke: var(--color-heart-empty);
+}
+
+.btn-primary {
+  width: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 700;
+  padding: var(--spacing-150) var(--spacing-250);
+  transition:
+    transform var(--duration-instant) ease,
+    opacity var(--duration-fast) ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: scale(1.01);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+}
+
+/* Keyboard shortcuts (KeyHints.tsx): only for a mouse or trackpad, where there's a keyboard. */
+.key-hints {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-100) var(--spacing-300);
+  font-size: var(--text-xs);
+  line-height: var(--text-xs--line-height);
+  color: var(--color-muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .key-hints {
+    display: flex;
+  }
+}
+
+.key-hints kbd {
+  display: inline-block;
+  min-width: var(--spacing-300);
+  margin-inline-end: var(--spacing-50);
+  padding: 0 var(--spacing-50);
+  border: var(--border-thin) solid var(--color-line);
+  border-bottom-width: var(--border-thick);
+  border-radius: var(--spacing-50);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  text-align: center;
+}

@@ -1,0 +1,285 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "oxc",
+    "react",
+    "jsx-a11y",
+    "nextjs",
+    "import",
+    "promise",
+    "vitest"
+  ],
+  "jsPlugins": ["./lint/filmdle-rules.mjs"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "perf": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "reportUnusedDisableDirectives": "error",
+    "respectEslintDisableDirectives": false
+  },
+  "env": { "browser": true, "node": true, "es2024": true },
+  "settings": {
+    "react": { "version": "19.3" },
+    "next": { "rootDir": "." }
+  },
+  "rules": {
+    // Size and structure: split things up rather than raising these.
+    "complexity": ["error", 15],
+    "max-depth": ["error", 3],
+    "max-params": ["error", 4],
+    "max-lines": ["error", { "max": 300, "skipBlankLines": true, "skipComments": true }],
+    "max-lines-per-function": [
+      "error",
+      { "max": 120, "skipBlankLines": true, "skipComments": true }
+    ],
+    "no-nested-ternary": "error",
+    "unicorn/no-nested-ternary": "error",
+    "unicorn/no-array-for-each": "error",
+    "curly": ["error", "all"],
+    "import/no-default-export": "error",
+    "import/no-relative-parent-imports": "error",
+    "typescript/method-signature-style": ["error", "property"],
+    "react/no-multi-comp": "error",
+    "filmdle/no-barrel": "error",
+    "filmdle/specific-file-name": "error",
+    "filmdle/no-jsx-and": "error",
+    "filmdle/no-typeof-type": "error",
+    // Colours and sizes come from the design tokens (src/app/styles/tokens.css).
+    "filmdle/no-raw-style": "error",
+
+    "eqeqeq": ["error", "always"],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "no-implicit-coercion": "error",
+    "no-param-reassign": "error",
+    "no-var": "error",
+    "no-empty-function": "error",
+    "object-shorthand": "error",
+    "prefer-const": "error",
+    "prefer-template": "error",
+
+    "react/rules-of-hooks": "error",
+    "react/no-array-index-key": "error",
+    "react/jsx-no-useless-fragment": "error",
+    "react/self-closing-comp": "error",
+    "react/jsx-boolean-value": "error",
+    "react/jsx-no-target-blank": "error",
+    // Typographic quotes in messages.tsx are intended.
+    "react/no-unescaped-entities": "off",
+    "react/react-in-jsx-scope": "off",
+
+    "import/no-duplicates": "error",
+    "import/no-unassigned-import": ["error", { "allow": ["**/*.css"] }],
+    "import/no-cycle": "error",
+    "import/no-self-import": "error",
+
+    "typescript/consistent-type-definitions": ["error", "type"],
+    "typescript/consistent-type-imports": ["error", { "fixStyle": "inline-type-imports" }],
+    "typescript/no-import-type-side-effects": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-non-null-assertion": "error",
+    "typescript/ban-ts-comment": "error",
+    "typescript/no-inferrable-types": "error",
+    "typescript/array-type": "error",
+    "typescript/prefer-for-of": "error",
+
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-misused-promises": ["error", { "checksVoidReturn": { "attributes": false } }],
+    "typescript/no-confusing-void-expression": ["error", { "ignoreArrowShorthand": true }],
+    "typescript/restrict-template-expressions": ["error", { "allowNumber": true }],
+    "typescript/restrict-plus-operands": "error",
+    "typescript/switch-exhaustiveness-check": "error",
+    "typescript/prefer-nullish-coalescing": "error",
+    "typescript/prefer-optional-chain": "error",
+    "typescript/no-unnecessary-condition": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "typescript/no-unnecessary-template-expression": "error",
+    "typescript/no-deprecated": "error",
+    "typescript/only-throw-error": "error",
+    "typescript/prefer-promise-reject-errors": "error",
+    "typescript/prefer-includes": "error",
+    "typescript/require-await": "error",
+    "typescript/return-await": "error",
+
+    // Accessibility: every jsx-a11y rule is an error, whatever its category.
+    "jsx-a11y/alt-text": "error",
+    "jsx-a11y/anchor-ambiguous-text": "error",
+    "jsx-a11y/anchor-has-content": "error",
+    "jsx-a11y/anchor-is-valid": "error",
+    "jsx-a11y/aria-activedescendant-has-tabindex": "error",
+    "jsx-a11y/aria-props": "error",
+    "jsx-a11y/aria-proptypes": "error",
+    "jsx-a11y/aria-role": "error",
+    "jsx-a11y/aria-unsupported-elements": "error",
+    "jsx-a11y/autocomplete-valid": "error",
+    "jsx-a11y/click-events-have-key-events": "error",
+    "jsx-a11y/control-has-associated-label": "error",
+    "jsx-a11y/heading-has-content": "error",
+    "jsx-a11y/html-has-lang": "error",
+    "jsx-a11y/iframe-has-title": "error",
+    "jsx-a11y/img-redundant-alt": "error",
+    "jsx-a11y/interactive-supports-focus": "error",
+    "jsx-a11y/label-has-associated-control": "error",
+    "jsx-a11y/lang": "error",
+    "jsx-a11y/media-has-caption": "error",
+    "jsx-a11y/mouse-events-have-key-events": "error",
+    "jsx-a11y/no-access-key": "error",
+    "jsx-a11y/no-aria-hidden-on-focusable": "error",
+    "jsx-a11y/no-autofocus": "error",
+    "jsx-a11y/no-distracting-elements": "error",
+    "jsx-a11y/no-interactive-element-to-noninteractive-role": "error",
+    "jsx-a11y/no-noninteractive-element-interactions": "error",
+    "jsx-a11y/no-noninteractive-element-to-interactive-role": "error",
+    "jsx-a11y/no-noninteractive-tabindex": "error",
+    "jsx-a11y/no-redundant-roles": "error",
+    "jsx-a11y/no-static-element-interactions": "error",
+    "jsx-a11y/role-has-required-aria-props": "error",
+    "jsx-a11y/role-supports-aria-props": "error",
+    "jsx-a11y/scope": "error",
+    "jsx-a11y/tabindex-no-positive": "error",
+
+    // `<p role="status">` is announced more reliably than `<output>`, and the progress
+    // dots are a `role="img"` group that an <img> can't replace.
+    "jsx-a11y/prefer-tag-over-role": "off",
+    // React effects return a cleanup on some paths only; that's the API.
+    "typescript/consistent-return": "off",
+    // Too strict for JSON.parse and test mocks; type guards are used where it matters.
+    "typescript/no-unsafe-type-assertion": "off",
+    // Fire-and-forget `.then` callbacks with early returns are fine.
+    "promise/always-return": ["error", { "ignoreLastCallback": true }],
+    "vitest/expect-expect": ["error", { "assertFunctionNames": ["expect", "expectAccessible"] }]
+  },
+  "overrides": [
+    {
+      // Keep the project easy to find your way around: at most 7 files per folder, grouped
+      // into subfolders by feature (see .claude/rules/code-style.md). The repo root holds the
+      // tool configs, so the rule starts at src/ and scripts/.
+      "files": ["src/**", "scripts/**"],
+      "rules": { "filmdle/max-files-per-folder": "error" }
+    },
+    {
+      // The one TypeScript file allowed colour literals: images drawn by next/og can't read CSS.
+      "files": ["src/lib/display/palette.ts"],
+      "rules": { "filmdle/no-raw-style": "off" }
+    },
+    {
+      // Next requires default exports for pages and its special files; so do the tool configs.
+      "files": ["src/app/**", "*.config.*"],
+      "rules": { "import/no-default-export": "off" }
+    },
+    {
+      // One object per language; splitting it would only hide that.
+      "files": ["src/i18n/messages.tsx"],
+      "rules": { "max-lines": "off", "max-lines-per-function": "off", "react/no-multi-comp": "off" }
+    },
+    {
+      // Layers: lib and i18n know nothing about React screens.
+      "files": ["src/lib/**", "src/i18n/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/app/*", "@/components/*", "@/hooks/*"],
+                "message": "lib and i18n must not depend on app, components or hooks."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/hooks/**"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/app/*", "@/components/*"],
+                "message": "Hooks must not depend on app or components."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["**/__tests__/**", "src/test/**"],
+      "rules": {
+        // A describe block is as long as what it covers.
+        "max-lines-per-function": "off",
+        // Everything is imported and nothing is global. Tests are flat: no `describe`.
+        "vitest/prefer-importing-vitest-globals": "error",
+        "filmdle/no-describe": "error",
+        // Fake at the outside boundary (see .claude/rules/testing.md), not inside the app.
+        "vitest/no-restricted-vi-methods": [
+          "error",
+          {
+            "mock": "Avoid module mocks: fake the outside boundary instead.",
+            "doMock": "Avoid module mocks: fake the outside boundary instead.",
+            "fn": "Avoid mock functions: use a small fake that records what happened.",
+            "spyOn": "Avoid spies: assert on what the code visibly did.",
+            "stubGlobal": "Set the fake up in src/test/helpers.tsx."
+          }
+        ],
+        "typescript/no-non-null-assertion": "off",
+        "no-param-reassign": "off",
+        // Helpers next to the tests that use them read better than hoisted ones.
+        "unicorn/consistent-function-scoping": "off",
+        // Vitest: stray `.only`/`.skip`, broken `expect`s and unawaited assertions fail silently.
+        // Parameterized tests use `.for` (never a loop around `it`): see .claude/rules/testing.md.
+        "vitest/prefer-each": "error",
+        "vitest/consistent-each-for": ["error", { "test": "for", "it": "for" }],
+        "vitest/consistent-test-it": ["error", { "fn": "it" }],
+        "vitest/consistent-vitest-vi": "error",
+        "vitest/hoisted-apis-on-top": "error",
+        "vitest/no-alias-methods": "error",
+        "vitest/no-commented-out-tests": "error",
+        "vitest/no-conditional-expect": "error",
+        "vitest/no-disabled-tests": "error",
+        "vitest/no-duplicate-hooks": "error",
+        "vitest/no-focused-tests": "error",
+        "vitest/no-identical-title": "error",
+        "vitest/no-import-node-test": "error",
+        "vitest/no-standalone-expect": "error",
+        "vitest/no-test-prefixes": "error",
+        "vitest/no-test-return-statement": "error",
+        "vitest/no-unneeded-async-expect-function": "error",
+        "vitest/prefer-comparison-matcher": "error",
+        "vitest/prefer-equality-matcher": "error",
+        "vitest/prefer-hooks-in-order": "error",
+        "vitest/prefer-hooks-on-top": "error",
+        "vitest/prefer-mock-promise-shorthand": "error",
+        "vitest/prefer-mock-return-shorthand": "error",
+        "vitest/prefer-spy-on": "error",
+        "vitest/prefer-to-be": "error",
+        "vitest/prefer-to-contain": "error",
+        "vitest/prefer-to-have-length": "error",
+        "vitest/prefer-todo": "error",
+        "vitest/require-awaited-expect-poll": "error",
+        "vitest/require-mock-type-parameters": "error",
+        "vitest/require-to-throw-message": "error",
+        "vitest/valid-describe-callback": "error",
+        "vitest/valid-expect": "error",
+        "vitest/valid-expect-in-promise": "error",
+        "vitest/valid-title": "error"
+      }
+    },
+    {
+      "files": ["scripts/**"],
+      "rules": { "no-console": "off" }
+    }
+  ],
+  "ignorePatterns": ["lint/**", ".next/**", "out/**", "build/**", "coverage/**", "next-env.d.ts"]
+}

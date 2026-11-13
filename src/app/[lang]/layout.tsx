@@ -1,0 +1,81 @@
+import "@/app/globals.css";
+import type { Metadata, Viewport } from "next";
+import { Heebo, Roboto, Roboto_Mono } from "next/font/google";
+import { notFound } from "next/navigation";
+import { lang as langParam } from "next/root-params";
+import { dirOf, hasLocale, localeParams, localePath, LOCALES } from "@/i18n/config";
+import { I18nProvider } from "@/i18n/I18nProvider";
+import { MESSAGES } from "@/i18n/messages";
+import { PALETTE } from "@/lib/display/palette";
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"],
+});
+
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
+  subsets: ["latin"],
+});
+
+// Roboto has no Hebrew glyphs. Heebo is Roboto's Hebrew companion design, listed after
+// Roboto in the font stack so Latin text keeps Roboto and Hebrew text uses Heebo.
+const heebo = Heebo({
+  variable: "--font-hebrew",
+  subsets: ["hebrew"],
+});
+
+export function generateStaticParams() {
+  return localeParams();
+}
+
+/**
+ * Search engines need absolute `hreflang` links, so relative metadata URLs resolve against the
+ * site's address. Vercel sets `VERCEL_PROJECT_PRODUCTION_URL` (its production domain) in every
+ * build, so the site still needs no environment variables of its own; local builds use localhost.
+ */
+const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+const metadataBase = new URL(
+  productionHost ? `https://${productionHost}` : `http://localhost:${process.env.PORT ?? 3000}`,
+);
+
+export async function generateMetadata(): Promise<Metadata> {
+  const lang = await langParam();
+  if (!hasLocale(lang)) {
+    return {};
+  }
+  const t = MESSAGES[lang];
+  return {
+    metadataBase,
+    title: t.meta.title,
+    description: t.meta.description,
+    alternates: {
+      languages: Object.fromEntries(LOCALES.map((l) => [l, localePath(l, "/")])),
+    },
+  };
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: PALETTE.pageLight },
+    { media: "(prefers-color-scheme: dark)", color: PALETTE.page },
+  ],
+};
+
+export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
+  const lang = await langParam();
+  if (!hasLocale(lang)) {
+    notFound();
+  }
+  return (
+    <html
+      lang={lang}
+      dir={dirOf(lang)}
+      className={`${roboto.variable} ${robotoMono.variable} ${heebo.variable} h-full antialiased`}
+    >
+      <body className="flex min-h-full flex-col">
+        <I18nProvider lang={lang}>{children}</I18nProvider>
+      </body>
+    </html>
+  );
+}

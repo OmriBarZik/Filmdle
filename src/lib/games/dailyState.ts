@@ -16,8 +16,18 @@ function sameLanguages(a: readonly Locale[], b: readonly Locale[]): boolean {
   return a.length === b.length && a.every((l) => b.includes(l));
 }
 
+/**
+ * A day that can be played: well formed, and every one of its films still in the catalog
+ * (a day saved with films that were since removed is picked again).
+ */
 function isValidDailyDay(d: Partial<DailyDay> | undefined): d is DailyDay {
-  return d !== undefined && typeof d.anchorYear === "number" && Array.isArray(d.placements);
+  return (
+    d !== undefined &&
+    typeof d.anchorYear === "number" &&
+    Array.isArray(d.placements) &&
+    Array.isArray(d.filmIds) &&
+    d.filmIds.every((id) => getFilm(id) !== undefined)
+  );
 }
 
 /**

@@ -97,6 +97,14 @@ it("daily five: keeps the line in order even after wrong placements", () => {
   expect(d.daily.stats.distribution[3]).toBe(1);
 });
 
+it("daily five: picks a saved day again when its films are no longer in the catalog", () => {
+  const d = ensureDailyDay(emptySave(), DAY);
+  const stale = { ...d.daily.days[DAY]!, filmIds: ["gone-1", "gone-2"], placements: [] };
+  const broken: SaveData = { ...d, daily: { ...d.daily, days: { [DAY]: stale } } };
+  const fixed = ensureDailyDay(broken, DAY);
+  expect(fixed.daily.days[DAY]!.filmIds).toEqual(dailyFilmsFor(DAY).map((f) => f.id));
+});
+
 it("daily five: ignores placements after the day is done", () => {
   const d = playDay(emptySave(), DAY, () => true);
   expect(placeDailyFilm(d, DAY, 0)).toBe(d);

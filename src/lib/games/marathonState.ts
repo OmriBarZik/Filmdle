@@ -18,13 +18,15 @@ function sameLanguages(a: readonly string[], b: readonly string[]): boolean {
   return a.length === b.length && a.every((l) => b.includes(l));
 }
 
+/** A run that can be played: well formed, and every film placed in it still in the catalog. */
 export function isValidMarathonDay(d: Partial<MarathonDay> | undefined): d is MarathonDay {
   return (
     d !== undefined &&
     typeof d.anchorYear === "number" &&
     Array.isArray(d.placements) &&
     Array.isArray(d.skipped) &&
-    Array.isArray(d.languages)
+    Array.isArray(d.languages) &&
+    d.placements.every((p) => getFilm(p.filmId) !== undefined)
   );
 }
 

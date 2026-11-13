@@ -36,9 +36,7 @@ export function SwipeCardPoster({
         draggable={false}
         className="swipe-film-img"
       />
-      <span className="swipe-film-year">
-        {film.year}
-      </span>
+      <span className="swipe-film-year">{film.year}</span>
       {note ? <span className="swipe-note text-xs font-semibold">{note}</span> : null}
       {/* Its own direction (dir="auto"), so a long English name is cut at its end even on
           a Hebrew page. */}

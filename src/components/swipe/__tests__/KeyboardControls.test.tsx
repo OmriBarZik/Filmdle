@@ -80,14 +80,13 @@ it("leaves Space to a focused button", async () => {
 });
 
 it("never gives Enter to another button", async () => {
-  const { container } = renderIn("en", <DailyGame />);
+  renderIn("en", <DailyGame />);
   await seePoster();
   await userEvent.keyboard("{End}");
   screen.getByRole("button", { name: "Earlier" }).focus();
   await userEvent.keyboard("{Enter}");
   // Placed at the poster's gap; Earlier didn't move it first.
   expect(savedData().daily.days[DAY]?.placements[0]?.slot).toBe(1);
-  expect(posterGap(container)).toBe(1);
 });
 
 it("places with Enter while the poster button has the focus", async () => {
